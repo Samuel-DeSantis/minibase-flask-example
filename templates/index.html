@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Minibase Flask Example</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 20px;
+        background-color: #242424;
+        color: #e2e2e2;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+      th, td {
+        padding: 10px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+      }
+      a {
+        color: #e2e2e2;
+        text-decoration: none;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Minibase Flask Example</h1>
+    <p>This is a simple example showing the simplicity of using minibase with a web framework like flask.</p>
+    <a href="/api/users" style="margin-top: 30px;" target="_blank">> INDEX</a>
+    <table>
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Age</th>
+      </tr>
+      {% for row in data['users'] %}
+        <tr>
+          <td>{{ row['id'] }}</td>
+          <td>{{ row['name'] }}</td>
+          <td>{{ row['age'] }}</td>
+          <td style="border-bottom: none;">
+            <a href="/api/users/{{row['id']}}" target="_blank">SHOW</a>
+          </td>
+          <td style="border-bottom: none;">
+            <form method="POST" action="/users/{{row['id']}}">
+              <input hidden type="text" name="id" value="{{row['id']}}" id="id" required>
+              <button type="submit">DELETE</button>
+            </form>
+          </td>
+        </tr>
+      {% endfor %}
+    </table>
+    <h3 style="padding-top: 20px;">New User</h3>
+    <form method="POST" action="/" style="padding-top: 5px;">
+      <div style="display: flex; flex-direction: column; max-width: min-content;">
+        <label for="name">Name:</label>
+        <input type="text" name="name" id="name" placeholder="Name" style="margin-top: 5px;" required>
+        <label for="age" style="padding-top: 5px;">Age:</label>
+        <input type="number" name="age" id="age" placeholder="Age" style="margin-top: 5px;" required>
+      </div>
+      <button type="submit">Create</button>
+    </form>
+  </body>
+</html>
